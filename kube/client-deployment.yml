@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chat-app-api
+  name: chat-app-client
   namespace: distributed-chat-alex
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chat-app-api
+      app: chat-app-client
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,26 +16,23 @@ spec:
   template:
     metadata:
       labels:
-        app: chat-app-api
+        app: chat-app-client
     spec:
       containers:
-        - name: chat-app-api
-          image: alexmickelson/distributed-chat-api:${IMAGE_TAG}
+        - name: chat-app-client
+          image: alexmickelson/distributed-chat-client:${IMAGE_TAG}
           ports:
             - containerPort: 8080
-          env:
-          - name: DB_CONNECTION_STRING
-            value: Server=db-svc;Port=5432;Userid=chat_user;Password=secure_password;Database=chat_db"
           readinessProbe:
             httpGet:
-              path: /health
+              path: /
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 3
           livenessProbe:
             httpGet:
-              path: /health
+              path: /
               port: 8080
             initialDelaySeconds: 15
             periodSeconds: 20
