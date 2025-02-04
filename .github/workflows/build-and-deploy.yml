@@ -42,6 +42,9 @@ jobs:
 
           export IMAGE_TAG=${{ github.run_number }}
 
+          kubectl -n distributed-chat-alex delete configmap db-init || true
+          kubectl -n distributed-chat-alex create configmap db-init --from-file=init.sql
+
           for file in kube/*; do 
               cat "$file" | envsubst | kubectl apply -f -; 
           done

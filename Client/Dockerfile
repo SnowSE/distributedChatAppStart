@@ -8,9 +8,7 @@ RUN dotnet restore Client/Client.csproj
 COPY Logic/Logic.csproj Logic/Logic.csproj
 RUN dotnet restore Logic/Logic.csproj
 
-
 COPY . .
-
 RUN dotnet publish -c Release Client/Client.csproj -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
