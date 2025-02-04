@@ -12,7 +12,7 @@ services:
       dockerfile: dev.Dockerfile
     command: dotnet run --project Api
     environment:
-      - CONNECTION_STRING=Server=db;Database=chatdb;User Id=chatuser;Password=asoienwoafin;
+      - CONNECTION_STRING=Server=db;Database=chatdb;Userid=chatuser;Password=asoienwoafin;
 
   db:
     image: postgres:16
