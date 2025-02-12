@@ -5,7 +5,7 @@ metadata:
   namespace: distributed-chat-alex
 spec:
   rules:
-    - host: alex-react.duckdns.org
+    - host: alex-distributed.duckdns.org
       http:
         paths:
           - path: /api
