@@ -25,4 +25,7 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+
+app.MapGet("/health", () => "yay! healthy!!! 🔥");
+
 app.Run();
