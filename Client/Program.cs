@@ -30,12 +30,5 @@ app.MapGet("/health", () =>
 {
     return "yay! healthy!!! 🔥";
 });
-app.MapGet("/delay", async () =>
-{
-    Console.WriteLine("sleeping for delay");
-    
-    await Task.Delay(2000);
-    return "yay! delay!!! 🔥";
-});
 
 app.Run();
