@@ -5,5 +5,4 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/health", () => "yay! healthy!!! 🔥");
 
-
 app.Run();
