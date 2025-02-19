@@ -6,13 +6,34 @@ services:
     command: dotnet run --project Client
     ports:
       - 8080:8080
+    environment:
+      - MESSAGE_API_URL=http://api:8080
+      - IMAGE1_API_URL=http://localhost:8081
   api:
     build:
       context: .
       dockerfile: dev.Dockerfile
     command: dotnet run --project Api
-    environment:
       - CONNECTION_STRING=Server=db;Database=chatdb;Userid=chatuser;Password=asoienwoafin;
+    environment:
+      - IMAGE1_API_URL=http://imageapi1:8080
+  
+  imageapi1:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - 8081:8080
+    command: dotnet run --project Api
+      - CONNECTION_STRING=Server=db;Database=chatdb;Userid=chatuser;Password=asoienwoafin;
+  
+  # imageApi:
+  #   build:
+  #     context: .
+  #     dockerfile: dev.Dockerfile
+  #   command: dotnet run --project ImageApi
+  #   volumes:
+  #     - image_api_data1:/app/ImageApi/wwwroot/images
 
   db:
     image: postgres:16
@@ -26,3 +47,4 @@ services:
 
 volumes:
   postgres_data:
+  image_api_data1:

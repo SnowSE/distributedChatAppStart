@@ -3,6 +3,18 @@ kind: Ingress
 metadata:
   name: chat-app-api-ingress
   namespace: distributed-chat-alex
+
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"  # Important!
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_cache auth_cache;
+      proxy_cache_valid 404 1m;
+      proxy_ignore_headers Expires Cache-Control X-Accel-Expires;
+      proxy_ignore_headers Set-Cookie;
+      proxy_cache_use_stale error timeout updating http_404 http_500 http_502 http_503 http_504;
+      proxy_cache_bypass $http_x_purge;
+      add_header X-Cache-Status $upstream_cache_status;
 spec:
   rules:
     - host: alex-distributed.duckdns.org

@@ -3,7 +3,24 @@
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
-
-<img src="imageapi.com/images/image3.jpg" />
+@{
+  string imageUrl = $"{getImageUrlById(myMessage.imageId)}/images/{myMessage.fileName}";
+}
+<img src=@imageUrl />
 
 Welcome to your new app.
+
+@code {
+  record Message(string fileName, string imageId);
+  Message myMessage = new ("image.png", "1");
+
+  string getImageUrlById(string serverId)
+  {
+    if(serverId == "1")
+      return "http://localhost:8081";
+    return "";
+  }
+
+}
+
+
