@@ -5,8 +5,11 @@ var app = builder.Build();
 
 app.MapStaticAssets();
 
-app.MapGet("/images/{imageName}", (string imageName) =>
+app.MapGet("/images/{imageName}", async (string imageName) =>
 {
+    Console.WriteLine("delay for cache");
+    
+    await Task.Delay(1000);
     Console.WriteLine(imageName);
 
     // db lookup 
